@@ -1,0 +1,43 @@
+const getUsersTemplate = (name, description) => `
+<div class="item testimonial-wrapper">
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <img src="dist/img/testimonials-img-1.png" alt="client 1" />
+                </div>
+                <div class="col-12 col-sm-8">
+                  <div class="testimonial-content">
+                    <h3>${name}</h3>
+                    <h5>${description}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            `
+
+
+async function getUsers() {
+  const usersApiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  const users = await $.ajax(usersApiUrl, {
+    method: 'POST',
+    data: {
+      firstName: firstName,
+    }
+  });
+  const usersHtmlArr = users.map(user => getUsersTemplate(user.name, user.company.catchPhrase))
+  const usersHtml = usersHtmlArr.join(' ');
+  $('.testimonials-carousel').html(usersHtml)
+
+  initTestimonialsCarousel();
+}
+
+getUsers();
+
+
+todo app
+ajax opyions jquery
+promise research
+api calls from frontend and ajax calls then catch(parameters r method)
+await async
+.map detailed research 
+get post patch delete put

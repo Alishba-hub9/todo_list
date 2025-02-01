@@ -1,0 +1,117 @@
+@use "abstracts/colors";
+@use "abstracts/variables";
+
+.wrapper {
+  font-family: "ABeeZee";
+  .todo-container {
+    padding: 25px 10px;
+    width: 33%;
+    margin: 20px auto;
+    border-radius: 30px;
+    .header-todo {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      column-gap: 20px;
+
+      h1 {
+        font-size: 47px;
+        color: colors.$text-color;
+      }
+
+      .todo-icon {
+        font-size: 34px;
+        color: colors.$text-color;
+      }
+    }
+
+    .input-container {
+      display: flex;
+      border: 1px solid #b3afaf;
+      border-radius: 30px;
+      margin: 15px 0;
+
+      &:active,
+      &:focus {
+        border: 1px solid colors.$text-color;
+      }
+
+      input {
+        padding-left: 20px;
+        width: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+      }
+
+      .add-task-btn {
+        padding: 15px 20px;
+        border: 1px solid colors.$text-color;
+        border-radius: 30px;
+        padding-left: 20px;
+        background-color: colors.$text-color;
+        cursor: pointer;
+        transition: 0.3s all ease;
+
+        &:hover {
+          background-color: #d5c5c5;
+        }
+      }
+    }
+
+    ul {
+      li {
+        display: flex;
+        align-items: center;
+        padding: 11px;
+        border-radius: 10px;
+        position: relative;
+        input[type="checkbox"] {
+          display: none;
+        }
+        label {
+          width: variables.$checkbox-size;
+          height: variables.$checkbox-size;
+          border: 1px solid colors.$text-color;
+          border-radius: 20%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: border-color 0.3s;
+          position: relative;
+        }
+        input[type="checkbox"]:checked + label {
+          background-color: colors.$text-color;
+
+          &::after {
+            content: "✔";
+            color: rgb(37, 37, 37);
+            font-size: 14px;
+            position: absolute;
+          }
+        }
+
+        .task-text {
+          color: colors.$text-color;
+          font-size: 14px;
+          margin-left: 10px;
+          transition: text-decoration 0.3s, opacity 0.3s;
+        }
+
+        input[type="checkbox"]:checked + label + .task-text {
+          text-decoration: line-through;
+          opacity: 0.8;
+        }
+        .delete-task {
+          background: transparent;
+          margin-left: auto;
+          border: none;
+          color: #ff0000;
+          font-size: 16px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
