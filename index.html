@@ -15,10 +15,17 @@
             <h1>To-Do List</h1>
             <i class="fa-solid fa-clipboard-list todo-icon"></i>
           </div>
+          <form class="form-todo">
           <div class="input-container">
-            <input type="text" id="task" class="text-light" placeholder="Add a new task..." />
-            <button id="add" class="add-task-btn text-dark">Add</button>
+            <input type="text" id="task" class="text-light" placeholder="Add a new task..." required />
+            <button class="add-task-btn text-dark">Add</button>
           </div>
+        </form>
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
           <ul id="tasks-list"></ul>
         </div>
       </div>

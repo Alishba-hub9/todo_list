@@ -16,27 +16,59 @@ $("#tasks-list").on("click", ".delete-task", function () {
   $(this).closest("li").remove();
 });
 
-$("#add").on("click", function () {
+$(".form-todo").on("submit", (e) => {
+  e.preventDefault();
   const taskText = $("#task").val().trim();
-  if (taskText) {
-    addTask(taskText);
-    $("#task").val("");
-  }
+  addTask(taskText);
+  $("#task").val("");
 });
 
-$(".input-container").on("keydown", function(e){
-    if(e.which === 13){
-        addTask()
-    }
-});
 
+function ajaxPromise(url, options) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      ...options,
+      url,
+      success: resolve,
+      error: reject
+    });
+  });
+}
 
 const fetchTasks = async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=9");
-  const data = await response.json();
-  const tasksHtml = data.map((task) => getTaskTemplate(task.title)).join("");
-//   console.log(tasksHtml);
-  $("#tasks-list").html(tasksHtml);
+  $(".spinner-border").show();
+
+  try {
+    const data = await ajaxPromise("https://jsonplaceholder.typicode.com/todos", {
+      data: { _limit: 9 }
+    });
+    const tasksHtml = data.map((task) => getTaskTemplate(task.title, task.completed)).join("");
+    $("#tasks-list").html(tasksHtml);
+    $(".spinner-border").hide();
+  
+  } catch (error) {
+    alert("Failed to load tasks. Please try again!");
+  }
+
 };
 
 fetchTasks();
+
+
+// const fetchTasks = () => {
+//   $(".spinner-border").show(); 
+//   $.ajax({
+//     url: "https://jsonplaceholder.typicode.com/todos",
+//     data: { _limit: 9 },
+//     success: function (data) {
+//       const tasksHtml = data.map((task) => getTaskTemplate(task.title, task.completed)).join("");
+//       $("#tasks-list").html(tasksHtml);
+//       $(".spinner-border").hide();
+//     },
+//     error: function () {
+//       alert("Failed to load tasks. Please try again!");
+//     },
+//   });
+// };
+
+// fetchTasks();
